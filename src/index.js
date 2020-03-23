@@ -4,12 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dropDownDiv = document.getElementById("drop-down-div")
 
-    hideNewForm()
-
+    
     showFormBTN = document.getElementById("show-form-btn")
-
     showFormBTN.addEventListener("click", showForm)
-
+    
+    hideNewForm()
     
     fetch('http://localhost:3000/budgets')
     .then((response) => {
