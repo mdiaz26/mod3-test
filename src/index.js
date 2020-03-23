@@ -1,32 +1,35 @@
 console.log("working")
 
+dropDownDiv = document.getElementById("drop-down-div")
+showFormBTN = document.getElementById("show-form-btn")
+
 document.addEventListener('DOMContentLoaded', () => {
     homepageRender()
     addButtonListeners(document.getElementById("body"))
     addFormSubmissionListeners()
 })
 
-    const homepageRender = () => {
-
-    dropDownDiv = document.getElementById("drop-down-div")
-
-    showFormBTN = document.getElementById("show-form-btn")
-
-    document.getElementById("body").innerHTML = ""
-
-    showFormBTN.addEventListener("click", showForm)
-
+const homepageRender = () => {    
+    clearBody()
     hideNewForm()
-    
+    addListenerToNewBudgetButton()
+    fetchBudgets()
+
+}
+
+const fetchBudgets = () => {
     fetch('http://localhost:3000/budgets')
-    .then((response) => {
-        return response.json();
-        })
-        .then((data) => {
-            renderDropDown(data);
-        });
-    }
-    
+    .then(response => response.json())
+    .then(renderDropDown)
+}
+
+const clearBody = () => {
+    document.getElementById("body").innerHTML = ""
+}
+
+const addListenerToNewBudgetButton = () => {
+    showFormBTN.addEventListener("click", showForm)
+}
 
 const showForm = () => {
         newForm.style.display = "block"
@@ -161,6 +164,7 @@ const postNewBudget = (budgetName, budgetAmount) => {
     .then(budgetObj => {
         fetchBudget(budgetObj.id)
         newForm.style.display = "none"
+        fetchBudgets()
     })
 }
 
