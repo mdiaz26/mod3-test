@@ -1,2 +1,2 @@
-# mod3-test
-Trying to figure out an issue with Adit
+# mod3Project
+Mod 3 end of term project
