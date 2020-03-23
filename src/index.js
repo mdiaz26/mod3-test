@@ -4,28 +4,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dropDownDiv = document.getElementById("drop-down-div")
 
-    newForm = document.getElementById("new-project-form")
-    newForm.style.display = "none"
-
+    
     showFormBTN = document.getElementById("show-form-btn")
-
     showFormBTN.addEventListener("click", showForm)
-
-    function showForm() {
-        newForm.style.display = "block"
-    }
+    
+    hideNewForm()
     
     fetch('http://localhost:3000/budgets')
-        .then((response) => {
-            return response.json();
+    .then((response) => {
+        return response.json();
         })
         .then((data) => {
             renderDropDown(data);
         });
+        
+        addButtonListeners(document.getElementById("body"))
+        addFormSubmissionListeners()
+    })
 
-    addButtonListeners(document.getElementById("body"))
-    addFormSubmissionListeners()
-})
+const showForm = () => {
+        newForm.style.display = "block"
+    }
+
+const hideNewForm = () => {
+    newForm = document.getElementById("new-project-form")
+    newForm.style.display = "none"
+}
 
 const renderDropDown = (budgetsObj) => {
     const dropDown = document.createElement('select')
