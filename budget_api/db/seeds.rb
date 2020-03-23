@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Budget.destroy_all
-Comment.destroy_all
 LineItem.destroy_all
+Comment.destroy_all
 
 budget1 = Budget.create(name: "Luncheon", total_amount: 150)
 budget2 = Budget.create(name: "Wedding", total_amount: 150000)
