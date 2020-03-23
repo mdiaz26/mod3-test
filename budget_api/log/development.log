@@ -3893,3 +3893,206 @@ Processing by BudgetsController#show as */*
 Completed 200 OK in 4ms (Views: 2.7ms | ActiveRecord: 0.5ms | Allocations: 2925)
 
 
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE DATABASE "budget_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE DATABASE "budget_api_test" ENCODING = 'unicode'[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (45.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "budgets" CASCADE[0m
+  [1m[35m (18.9ms)[0m  [1m[35mCREATE TABLE "budgets" ("id" bigserial primary key, "name" character varying, "total_amount" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (3.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments" CASCADE[0m
+  [1m[35m (15.6ms)[0m  [1m[35mCREATE TABLE "comments" ("id" bigserial primary key, "line_item_id" bigint NOT NULL, "body" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (6.6ms)[0m  [1m[35mCREATE  INDEX  "index_comments_on_line_item_id" ON "comments"  ("line_item_id")[0m
+  [1m[35m (9.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "line_items" CASCADE[0m
+  [1m[35m (11.7ms)[0m  [1m[35mCREATE TABLE "line_items" ("id" bigserial primary key, "budget_id" bigint NOT NULL, "amount" float, "status" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "name" character varying)[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE  INDEX  "index_line_items_on_budget_id" ON "line_items"  ("budget_id")[0m
+  [1m[35m (5.5ms)[0m  [1m[35mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_9c2db511eb"
+FOREIGN KEY ("line_item_id")
+  REFERENCES "line_items" ("id")
+[0m
+  [1m[35m (4.3ms)[0m  [1m[35mALTER TABLE "line_items" ADD CONSTRAINT "fk_rails_533e20cca6"
+FOREIGN KEY ("budget_id")
+  REFERENCES "budgets" ("id")
+[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (33.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "budgets" CASCADE[0m
+  [1m[35m (14.1ms)[0m  [1m[35mCREATE TABLE "budgets" ("id" bigserial primary key, "name" character varying, "total_amount" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (8.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments" CASCADE[0m
+  [1m[35m (16.5ms)[0m  [1m[35mCREATE TABLE "comments" ("id" bigserial primary key, "line_item_id" bigint NOT NULL, "body" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE  INDEX  "index_comments_on_line_item_id" ON "comments"  ("line_item_id")[0m
+  [1m[35m (7.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "line_items" CASCADE[0m
+  [1m[35m (15.5ms)[0m  [1m[35mCREATE TABLE "line_items" ("id" bigserial primary key, "budget_id" bigint NOT NULL, "amount" float, "status" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "name" character varying)[0m
+  [1m[35m (6.7ms)[0m  [1m[35mCREATE  INDEX  "index_line_items_on_budget_id" ON "line_items"  ("budget_id")[0m
+  [1m[35m (8.9ms)[0m  [1m[35mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_9c2db511eb"
+FOREIGN KEY ("line_item_id")
+  REFERENCES "line_items" ("id")
+[0m
+  [1m[35m (4.0ms)[0m  [1m[35mALTER TABLE "line_items" ADD CONSTRAINT "fk_rails_533e20cca6"
+FOREIGN KEY ("budget_id")
+  REFERENCES "budgets" ("id")
+[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.4ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "development"], ["updated_at", "2020-03-23 20:36:30.646189"], ["key", "environment"]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2020-03-23 20:36:30.654821"], ["key", "environment"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mBudget Load (0.7ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items"[0m
+  [1m[36mComment Load (0.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (0.8ms)[0m  [1m[32mINSERT INTO "budgets" ("name", "total_amount", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Luncheon"], ["total_amount", 150], ["created_at", "2020-03-23 20:36:30.728465"], ["updated_at", "2020-03-23 20:36:30.728465"]]
+  [1m[35m (5.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (0.4ms)[0m  [1m[32mINSERT INTO "budgets" ("name", "total_amount", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Wedding"], ["total_amount", 150000], ["created_at", "2020-03-23 20:36:30.739282"], ["updated_at", "2020-03-23 20:36:30.739282"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLineItem Create (1.1ms)[0m  [1m[32mINSERT INTO "line_items" ("budget_id", "amount", "status", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["budget_id", 1], ["amount", 150.0], ["status", "Accepted"], ["created_at", "2020-03-23 20:36:30.761547"], ["updated_at", "2020-03-23 20:36:30.761547"], ["name", "plates"]]
+  [1m[35m (6.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLineItem Create (0.6ms)[0m  [1m[32mINSERT INTO "line_items" ("budget_id", "amount", "status", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["budget_id", 1], ["amount", 1050.0], ["status", "Accepted"], ["created_at", "2020-03-23 20:36:30.773305"], ["updated_at", "2020-03-23 20:36:30.773305"], ["name", "forks"]]
+  [1m[35m (5.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLineItem Create (1.0ms)[0m  [1m[32mINSERT INTO "line_items" ("budget_id", "amount", "status", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["budget_id", 1], ["amount", 1530.0], ["status", "Accepted"], ["created_at", "2020-03-23 20:36:30.785250"], ["updated_at", "2020-03-23 20:36:30.785250"], ["name", "spoons"]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLineItem Create (0.6ms)[0m  [1m[32mINSERT INTO "line_items" ("budget_id", "amount", "status", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["budget_id", 1], ["amount", 1250.0], ["status", "Accepted"], ["created_at", "2020-03-23 20:36:30.794705"], ["updated_at", "2020-03-23 20:36:30.794705"], ["name", "knives"]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mComment Create (0.8ms)[0m  [1m[32mINSERT INTO "comments" ("line_item_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["line_item_id", 1], ["body", "I AM THE BODY OF THE COMMENT!!!!"], ["created_at", "2020-03-23 20:36:30.822823"], ["updated_at", "2020-03-23 20:36:30.822823"]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(493284029473961565)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(493284029473961565)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mBudget Load (2.0ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLineItem Load (6.1ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."line_item_id" = $1[0m  [["line_item_id", 1]]
+  [1m[36mComment Destroy (0.4ms)[0m  [1m[31mDELETE FROM "comments" WHERE "comments"."id" = $1[0m  [["id", 1]]
+  [1m[36mLineItem Destroy (0.7ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = $1[0m  [["id", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."line_item_id" = $1[0m  [["line_item_id", 2]]
+  [1m[36mLineItem Destroy (0.4ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = $1[0m  [["id", 2]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."line_item_id" = $1[0m  [["line_item_id", 3]]
+  [1m[36mLineItem Destroy (0.5ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = $1[0m  [["id", 3]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."line_item_id" = $1[0m  [["line_item_id", 4]]
+  [1m[36mLineItem Destroy (0.4ms)[0m  [1m[31mDELETE FROM "line_items" WHERE "line_items"."id" = $1[0m  [["id", 4]]
+  [1m[36mComment Load (1.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  [1m[36mBudget Destroy (0.7ms)[0m  [1m[31mDELETE FROM "budgets" WHERE "budgets"."id" = $1[0m  [["id", 1]]
+  [1m[35m (11.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLineItem Load (0.3ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  [1m[36mBudget Destroy (0.5ms)[0m  [1m[31mDELETE FROM "budgets" WHERE "budgets"."id" = $1[0m  [["id", 2]]
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items"[0m
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (0.8ms)[0m  [1m[32mINSERT INTO "budgets" ("name", "total_amount", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Luncheon"], ["total_amount", 150], ["created_at", "2020-03-23 20:36:40.834825"], ["updated_at", "2020-03-23 20:36:40.834825"]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (0.4ms)[0m  [1m[32mINSERT INTO "budgets" ("name", "total_amount", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Wedding"], ["total_amount", 150000], ["created_at", "2020-03-23 20:36:40.843387"], ["updated_at", "2020-03-23 20:36:40.843387"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLineItem Create (0.8ms)[0m  [1m[32mINSERT INTO "line_items" ("budget_id", "amount", "status", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["budget_id", 3], ["amount", 150.0], ["status", "Accepted"], ["created_at", "2020-03-23 20:36:40.850173"], ["updated_at", "2020-03-23 20:36:40.850173"], ["name", "plates"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLineItem Create (0.6ms)[0m  [1m[32mINSERT INTO "line_items" ("budget_id", "amount", "status", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["budget_id", 3], ["amount", 1050.0], ["status", "Accepted"], ["created_at", "2020-03-23 20:36:40.856873"], ["updated_at", "2020-03-23 20:36:40.856873"], ["name", "forks"]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLineItem Create (0.6ms)[0m  [1m[32mINSERT INTO "line_items" ("budget_id", "amount", "status", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["budget_id", 3], ["amount", 1530.0], ["status", "Accepted"], ["created_at", "2020-03-23 20:36:40.863511"], ["updated_at", "2020-03-23 20:36:40.863511"], ["name", "spoons"]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLineItem Create (0.5ms)[0m  [1m[32mINSERT INTO "line_items" ("budget_id", "amount", "status", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["budget_id", 3], ["amount", 1250.0], ["status", "Accepted"], ["created_at", "2020-03-23 20:36:40.870297"], ["updated_at", "2020-03-23 20:36:40.870297"], ["name", "knives"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mComment Create (0.7ms)[0m  [1m[32mINSERT INTO "comments" ("line_item_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["line_item_id", 5], ["body", "I AM THE BODY OF THE COMMENT!!!!"], ["created_at", "2020-03-23 20:36:40.876775"], ["updated_at", "2020-03-23 20:36:40.876775"]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/budgets" for ::1 at 2020-03-23 16:37:02 -0400
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BudgetsController#index as HTML
+  [1m[36mBudget Load (4.7ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (1.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 3]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.3ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 3]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 4]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 4]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 138ms (Views: 72.0ms | ActiveRecord: 50.3ms | Allocations: 23729)
+
+
+Started GET "/favicon.ico" for ::1 at 2020-03-23 16:37:02 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (6.0.2.2) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.2) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.2) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.2) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.2) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.2) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.2) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.2) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.2) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.2) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.2.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.2) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.2.2) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.0.2.2) lib/rails/engine.rb:526:in `call'
+puma (4.3.3) lib/puma/configuration.rb:228:in `call'
+puma (4.3.3) lib/puma/server.rb:682:in `handle_request'
+puma (4.3.3) lib/puma/server.rb:472:in `process_client'
+puma (4.3.3) lib/puma/server.rb:328:in `block in run'
+puma (4.3.3) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/budgets" for ::1 at 2020-03-23 16:48:53 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (6.8ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (12.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 3]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 3]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (5.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 4]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (17.0ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 4]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 59ms (Views: 16.2ms | ActiveRecord: 42.2ms | Allocations: 5930)
+
+
+Started GET "/budgets" for ::1 at 2020-03-23 16:50:03 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (30.2ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 3]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (2.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 3]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (8.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 4]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (14.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 4]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 75ms (Views: 18.1ms | ActiveRecord: 56.6ms | Allocations: 5757)
+
+
