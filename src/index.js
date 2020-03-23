@@ -1,13 +1,21 @@
 console.log("working")
 
 document.addEventListener('DOMContentLoaded', () => {
+    homepageRender()
+    addButtonListeners(document.getElementById("body"))
+    addFormSubmissionListeners()
+})
+
+    const homepageRender = () => {
 
     dropDownDiv = document.getElementById("drop-down-div")
 
-    
     showFormBTN = document.getElementById("show-form-btn")
+
+    document.getElementById("body").innerHTML = ""
+
     showFormBTN.addEventListener("click", showForm)
-    
+
     hideNewForm()
     
     fetch('http://localhost:3000/budgets')
@@ -17,10 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then((data) => {
             renderDropDown(data);
         });
-        
-        addButtonListeners(document.getElementById("body"))
-        addFormSubmissionListeners()
-    })
+    }
+    
 
 const showForm = () => {
         newForm.style.display = "block"
@@ -40,6 +46,7 @@ const renderDropDown = (budgetsObj) => {
         dropDown.append(option)
     })
     addDropDownEventListener(dropDown)
+    dropDownDiv.innerHTML = ""
     dropDownDiv.append(dropDown)
 }
 
@@ -62,6 +69,7 @@ const renderBudget = budgetObject => {
     div.dataset.id = budgetObject.id
     div.innerHTML = `
     <h1>${budgetObject.name}</h1>
+    <button class="delete-budget">Delete</button>
     <form id="new-line-item-form">
         <label for="name">Line Item Name:</label><br>
         <input type="text" id="name" name="name"><br>
@@ -104,6 +112,9 @@ const addButtonListeners = divElement => {
             case "delete-button":
                 removeLineItem(lineItem)
                 break;
+            case "delete-budget":
+                deleteBudget(lineItem)
+                break;
         }
     })
 }
@@ -112,7 +123,6 @@ const removeLineItem = (lineItem) => {
     fetch(`http://localhost:3000/line_items/${lineItem.dataset.id}`, {
         method: "DELETE"
     })
-    .then(response => response.json())
     .then(lineItem.remove())
 }
 
@@ -169,5 +179,15 @@ const postNewLineItem = (lineItemName, lineItemamount, budgetId, lineItemstatus)
         console.dir(LineItem)
         fetchBudget(budgetId)
         newLineItemForm.style.display = "none"
+    })
+}
+
+const deleteBudget = (budjetObj) => {
+    console.dir(budjetObj)
+    fetch(`http://localhost:3000/budgets/${budjetObj.dataset.id}`, {
+        method: "DELETE"
+    })
+    .then(data => {
+        homepageRender()
     })
 }

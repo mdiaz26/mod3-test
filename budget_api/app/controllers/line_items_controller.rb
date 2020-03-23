@@ -16,7 +16,6 @@ class LineItemsController < ApplicationController
   # POST /line_items
   def create
     @line_item = LineItem.new(line_item_params)
-
     if @line_item.save
       render json: @line_item, status: :created, location: @line_item
     else
@@ -46,6 +45,6 @@ class LineItemsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def line_item_params
-      params.require(:line_item).permit(:budget_id, :amount, :status)
+      params.require(:line_item).permit(:budget_id, :amount, :status, :name)
     end
 end
