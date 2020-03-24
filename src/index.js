@@ -105,7 +105,8 @@ const appendCards = (lineItem, divElement) => {
         <div class="btn-group">
             <button class="edit-button btn btn-primary" >Edit</button>
             <button class="delete-button btn btn-primary" >Delete</button>
-        </div>
+            </div>
+            <button class="approve-button btn btn-primary" >Approve</button>
     `
     divElement.append(card)
 }
