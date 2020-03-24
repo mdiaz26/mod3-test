@@ -3,6 +3,7 @@ console.log("working")
 dropDownDiv = document.getElementById("drop-down-div")
 showFormBTN = document.getElementById("show-form-btn")
 
+
 document.addEventListener('DOMContentLoaded', () => {
     homepageRender()
     addButtonListeners(document.getElementById("body"))
@@ -90,14 +91,18 @@ const renderBudget = budgetObject => {
 
 const appendCards = (lineItem, divElement) => {
     const card = document.createElement('div')
-    card.className = 'card'
+    card.className = 'card text-white bg-primary mb-3'
     card.dataset.id = lineItem.id
     card.innerHTML = `
-        <p>${lineItem.name}</p>
+        <p class="card-header">${lineItem.name}</p>
+        <div class="card-body">
         <p>${lineItem.amount}</p>
         <p>${lineItem.status}</p>
-        <button class="edit-button" >Edit</button>
-        <button class="delete-button" >Delete</button>
+        </div>
+        <div class="btn-group">
+            <button class="edit-button btn btn-primary" >Edit</button>
+            <button class="delete-button btn btn-primary" >Delete</button>
+        </div>
     `
     divElement.append(card)
 }
@@ -109,10 +114,10 @@ const addButtonListeners = divElement => {
             case "add-line-item":
                 newLineItemForm.style.display = "block"
                 break;
-            case "edit-button":
+            case "edit-button btn btn-primary":
                 
                 break;
-            case "delete-button":
+            case "delete-button btn btn-primary":
                 removeLineItem(lineItem)
                 break;
             case "delete-budget":
@@ -123,10 +128,10 @@ const addButtonListeners = divElement => {
 }
 
 const removeLineItem = (lineItem) => {
-    fetch(`http://localhost:3000/line_items/${lineItem.dataset.id}`, {
+    fetch(`http://localhost:3000/line_items/${lineItem.parentNode.dataset.id}`, {
         method: "DELETE"
     })
-    .then(lineItem.remove())
+    .then(lineItem.parentNode.remove())
 }
 
 const addFormSubmissionListeners = () => {

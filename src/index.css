@@ -1,3 +1,18 @@
-.test{
- color: red
+.delete-budget {
+    color: white;
+    background: maroon;
+}
+
+.card {
+    width: 16rem;
+}
+
+.edit-button{
+    width: 50%;
+}
+
+.delete-button {
+    width: 50%;
+    color: white;
+    background: maroon;
 }
