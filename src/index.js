@@ -73,7 +73,9 @@ const renderBudget = budgetObject => {
     div.dataset.id = budgetObject.id
     div.innerHTML = `
     <h1>${budgetObject.name}</h1>
+    <h2>Total Budget: ${budgetObject.total_amount}</h2>
     <button class="delete-budget">Delete</button>
+    <button class="add-line-item">Add Line Item</button>
     <form id="new-line-item-form">
         <label for="name">Line Item Name:</label><br>
         <input type="text" id="name" name="name"><br>
@@ -81,11 +83,12 @@ const renderBudget = budgetObject => {
         <input type="number" id="amount" name="amount">
         <input type="submit" id="new-line-item-submit">
     </form>
-    <button class="add-line-item">Add Line Item</button>
+    <div id="card-div" class="card-group"></div>
     `
     newLineItemForm = document.getElementById("new-line-item-form")
     newLineItemForm.style.display = "none"
-    budgetObject.line_items.forEach(item => appendCards(item, div))
+    let cardDiv = document.getElementById("card-div")
+    budgetObject.line_items.forEach(item => appendCards(item, cardDiv))
     
 }
 
