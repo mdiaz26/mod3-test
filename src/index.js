@@ -91,7 +91,7 @@ const renderBudget = budgetObject => {
 
 const appendCards = (lineItem, divElement) => {
     const card = document.createElement('div')
-    card.className = 'card text-white bg-primary mb-3'
+    card.className = `card text-white bg-primary mb-3 status-${lineItem.status}`
     card.dataset.id = lineItem.id
     card.innerHTML = `
         <p class="card-header">${lineItem.name}</p>
