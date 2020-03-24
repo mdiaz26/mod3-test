@@ -113,13 +113,13 @@ const appendCards = (lineItem, divElement) => {
 
 const addButtonListeners = divElement => {
     divElement.addEventListener("click", event => {
-        lineItem = event.target.parentNode
+        lineItem = event.target.parentNode.parentNode
         switch (event.target.className) {
             case "add-line-item":
                 newLineItemForm.style.display = "block"
                 break;
             case "edit-button btn btn-primary":
-                
+                editLineItem(lineItem)
                 break;
             case "delete-button btn btn-primary":
                 removeLineItem(lineItem)
@@ -131,11 +131,61 @@ const addButtonListeners = divElement => {
     })
 }
 
+const editLineItem = lineItem => {
+    console.log(lineItem)
+    renderEditItemForm(lineItem)
+}
+
+const renderEditItemForm = lineItem => {
+    const modal = document.getElementById("myModal")
+    modal.style.display = "block"
+    const form = modal.getElementsByTagName("form")[0]
+    form.dataset.id = lineItem.dataset.id
+    const currentName = lineItem.getElementsByClassName("card-header")[0].innerText
+    const currentAmount = lineItem.getElementsByClassName("card-body")[0].children[0].innerText
+    form.name.value = currentName
+    form.amount.value = currentAmount
+    addListenersToModal(modal)
+}
+
+const addListenersToModal = modalElement => {
+    modalElement.addEventListener("click", event => {
+        event.preventDefault()
+        switch (event.target.className) {
+            case "close":
+                event.target.parentNode.parentNode.style.display = "none"
+                break;
+            case "submit-form":
+                let formData = event.target.parentNode.parentNode
+                console.log(formData)
+                lineItemPostRequest(formData)
+                event.target.parentNode.parentNode.parentNode.parentNode.style.display = "none"
+                break;
+        }
+    })
+}
+
+const lineItemPostRequest = formData => {
+    fetch(`http://localhost:3000/line_items/${formData.dataset.id}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: formData.name.value,
+            amount: formData.amount.value
+        })
+    })
+    .then(response => response.json())
+    .then(newLineItem => fetchBudget(newLineItem.budget_id))
+}
+
 const removeLineItem = (lineItem) => {
-    fetch(`http://localhost:3000/line_items/${lineItem.parentNode.dataset.id}`, {
+    fetch(`http://localhost:3000/line_items/${lineItem.dataset.id}`, {
         method: "DELETE"
     })
-    .then(lineItem.parentNode.remove())
+    .then(lineItem.remove())
 }
 
 const addFormSubmissionListeners = () => {
