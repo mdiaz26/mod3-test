@@ -82,8 +82,8 @@ const fetchBudget = budgetId => {
 const renderBudget = budgetObject => {
     budgetContainer.dataset.id = budgetObject.id
     budgetContainer.innerHTML = `
-    <h1>${budgetObject.name}</h1>
-    <h2>Total Budget: $${Number(budgetObject.total_amount).toLocaleString('en')}</h2>
+    <h1 id= "budget-title">${budgetObject.name}</h1>
+    <h2 id= "budget-amount">Total Budget: $${Number(budgetObject.total_amount).toLocaleString('en')}</h2>
     <button class="delete-budget">Delete</button>
     <button class="add-line-item">Add Line Item</button>
     <form id="new-line-item-form">
@@ -103,7 +103,12 @@ const renderBudget = budgetObject => {
 
 const appendCards = (lineItem, divElement) => {
     const card = document.createElement('div')
-    card.className = `card text-white bg-primary mb-3 status-${lineItem.status}`
+    if (lineItem.status === "Tentative") {
+        card.style.backgroundColor = "yellow"
+    }else {
+        card.style.backgroundColor = "lightslategrey"
+    }
+    card.className = `card text-white mb-3}`
     card.dataset.id = lineItem.id
     card.innerHTML = `
         <p class="card-header">${lineItem.name}</p>
@@ -290,4 +295,49 @@ const addApproveButton = appendingElement => {
     if (appendingElement.getElementsByClassName("card-status")[0].innerText === "Accepted"){
         approveButton.style.display = "none"
     }
+}
+
+document.getElementById('export-google').addEventListener("click", event =>{
+    console.log("listenerworking")
+    fetch(`http://localhost:3000/budgets/${dropDownDiv.children[0].value}`)
+    .then(response => response.json())
+    .then(budgetObj => {
+            let input = parseInputForSheets(budgetObj)
+            gapi.client.sheets.spreadsheets.create({
+                properties: {
+                title: budgetObj.name + " " + budgetObj.total_amount
+                }
+            }).then((response) => {
+                let ssId= response.result.spreadsheetId
+                let spreadsheetURL = response.result.spreadsheetUrl
+                console.log(spreadsheetURL)
+
+                var body = {
+                    majorDimension: "COLUMNS",
+                    values: input
+                };
+                gapi.client.sheets.spreadsheets.values.update({
+                    spreadsheetId: ssId,
+                    range: "A1:Z1000",
+                    valueInputOption: "USER_ENTERED",
+                    resource: body
+                }).then((response) => {
+                    var result = response.result;
+                    console.log(`${result.updatedCells} cells updated.`);
+                });
+            });
+    })
+})
+
+function parseInputForSheets(budgetObj){
+    let lineItemName = ["Name"]
+    let lineItemAmount = ["Amount"]
+    let lineItemStatus = ["Status"]
+    budgetObj.line_items.forEach(lineItem => {
+        lineItemName.push(lineItem.name)
+        lineItemAmount.push(lineItem.amount)
+        lineItemStatus.push(lineItem.status)
+    })
+    let result = [lineItemName, lineItemAmount, lineItemStatus]
+    return result
 }

@@ -44,6 +44,17 @@
       </form>
     </div>
   </div>
+
+  <button class="export-google" id = "export-google" style= "display: none;">Export to Google</button>
+
   <script src="src/index.js"></script>
+  <script src="src/google.js"></script>
+
+  <script async defer src="https://apis.google.com/js/api.js"
+    onload="this.onload=function(){};handleClientLoad()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  </script>
+
+
 </body>
 </html>

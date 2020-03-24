@@ -9,12 +9,15 @@
 
 .edit-button{
     width: 50%;
+    background-color: lightslategrey;
+    border-color: black;
 }
 
 .delete-button {
     width: 50%;
     color: white;
     background: maroon;
+    border-color: black;
 }
 
 .modal {
@@ -36,4 +39,12 @@
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.status-accepted{
+    background-color: rgb(70, 114, 70);
+}
+
+.status-tentative{
+    background-color: rgb(73, 73, 73);
 }
