@@ -1,5 +1,5 @@
 console.log("working")
-
+budgetContainer = document.getElementById('body')
 dropDownDiv = document.getElementById("drop-down-div")
 showFormBTN = document.getElementById("show-form-btn")
 
@@ -43,8 +43,9 @@ const hideNewForm = () => {
 
 const renderDropDown = (budgetsObj) => {
     const dropDown = document.createElement('select')
+    addDefaultToDropDown(dropDown)
     budgetsObj.forEach(budget => {
-        const option = document.createElement('option')
+        let option = document.createElement('option')
         option.value = budget.id
         option.innerText = budget.name
         dropDown.append(option)
@@ -54,9 +55,19 @@ const renderDropDown = (budgetsObj) => {
     dropDownDiv.append(dropDown)
 }
 
+const addDefaultToDropDown = dropDown => {
+    let option = document.createElement('option')
+    option.innerText = "--"
+    dropDown.append(option)
+}
+
 const addDropDownEventListener = (dropDown) => {
     dropDown.addEventListener("change", event => {
+        if (event.target.value === "--") {
+            budgetContainer.innerHTML = ""
+        } else {
         fetchBudget(event.target.value)
+    }
     })
 }
 
@@ -69,11 +80,10 @@ const fetchBudget = budgetId => {
 }
 
 const renderBudget = budgetObject => {
-    const div = document.getElementById('body')
-    div.dataset.id = budgetObject.id
-    div.innerHTML = `
+    budgetContainer.dataset.id = budgetObject.id
+    budgetContainer.innerHTML = `
     <h1>${budgetObject.name}</h1>
-    <h2>Total Budget: ${budgetObject.total_amount}</h2>
+    <h2>Total Budget: $${Number(budgetObject.total_amount).toLocaleString('en')}</h2>
     <button class="delete-budget">Delete</button>
     <button class="add-line-item">Add Line Item</button>
     <form id="new-line-item-form">
@@ -89,7 +99,6 @@ const renderBudget = budgetObject => {
     newLineItemForm.style.display = "none"
     let cardDiv = document.getElementById("card-div")
     budgetObject.line_items.forEach(item => appendCards(item, cardDiv))
-    
 }
 
 const appendCards = (lineItem, divElement) => {
@@ -99,21 +108,22 @@ const appendCards = (lineItem, divElement) => {
     card.innerHTML = `
         <p class="card-header">${lineItem.name}</p>
         <div class="card-body">
-        <p>${lineItem.amount}</p>
-        <p>${lineItem.status}</p>
+            <p>$${Number(lineItem.amount).toLocaleString('en')}</p>
+            <p class="card-status">${lineItem.status}</p>
         </div>
         <div class="btn-group">
             <button class="edit-button btn btn-primary" >Edit</button>
             <button class="delete-button btn btn-primary" >Delete</button>
-            </div>
-            <button class="approve-button btn btn-primary" >Approve</button>
+        </div>
+        <button class="approve-button btn btn-primary" >Approve</button>
     `
+    addApproveButton(card)
     divElement.append(card)
 }
 
 const addButtonListeners = divElement => {
     divElement.addEventListener("click", event => {
-        lineItem = event.target.parentNode.parentNode
+        const lineItem = event.target.parentNode.parentNode
         switch (event.target.className) {
             case "add-line-item":
                 newLineItemForm.style.display = "block"
@@ -124,8 +134,13 @@ const addButtonListeners = divElement => {
             case "delete-button btn btn-primary":
                 removeLineItem(lineItem)
                 break;
+            case "approve-button btn btn-primary":
+                console.log(event.target.parentNode)
+                approveLineItem(event.target.parentNode)
+                break;
             case "delete-budget":
-                deleteBudget(lineItem)
+                const budgetElement = event.target.parentNode
+                deleteBudget(budgetElement)
                 break;
         }
     })
@@ -253,4 +268,26 @@ const deleteBudget = (budjetObj) => {
     .then(data => {
         homepageRender()
     })
+}
+
+const approveLineItem = lineItemElement => {
+    fetch(`http://localhost:3000/line_items/${lineItemElement.dataset.id}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            status: "Accepted"
+        })
+    })
+    .then(response => response.json())
+    .then(newLineItem => fetchBudget(newLineItem.budget_id))
+}
+
+const addApproveButton = appendingElement => {
+    let approveButton = appendingElement.getElementsByClassName("approve-button btn btn-primary")[0]
+    if (appendingElement.getElementsByClassName("card-status")[0].innerText === "Accepted"){
+        approveButton.style.display = "none"
+    }
 }
