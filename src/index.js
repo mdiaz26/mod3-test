@@ -2,7 +2,6 @@ console.log("working")
 budgetContainer = document.getElementById('body')
 dropDownDiv = document.getElementById("drop-down-div")
 var showFormBTN = document.getElementById("show-form-btn")
-var exportButton = document.getElementById('export-google')
 var displayBody = document.getElementById('budget-display-area')
 
 
@@ -34,14 +33,21 @@ const addListenerToNewBudgetButton = () => {
     showFormBTN.addEventListener("click", showForm)
 }
 
+document.getElementById("new-project-form").addEventListener("click", event => {
+    if (event.target.id === "cancel-btn") {
+        showForm()
+    }
+})
+
+
 const showForm = () => {
     if (newForm.style.display === "none"){
         newForm.style.display = "block"
         newForm.reset()
-        document.getElementById("show-form-btn").innerText = 'Cancel'
+        document.getElementById("show-form-btn").style.display = 'none'
     } else if (newForm.style.display === "block") {
         newForm.style.display = "none"
-        document.getElementById("show-form-btn").innerText = 'Create New Budget!'
+        document.getElementById("show-form-btn").style.display = 'block'
     }
     }
 
@@ -86,6 +92,7 @@ const fetchBudget = budgetId => {
     .then(response => response.json())
     .then(budgetObj => {
         renderBudget(budgetObj)
+        document.getElementById("url-display").style.display = "none"
     })
 }
 
@@ -244,7 +251,7 @@ const removeLineItem = (lineItem) => {
 const addFormSubmissionListeners = () => {
     document.addEventListener("submit", event => {
         event.preventDefault()
-        console.dir(event.target)
+        console.dir(event)
         switch (event.target.id) {
             case "new-project-form":
                 let budgetName = event.target.elements[0].value
@@ -266,7 +273,6 @@ const addFormSubmissionListeners = () => {
                     postNewLineItem(lineItemName, lineItemAmount, budgetId, lineItemstatus)
                 }
                 break;
-        
         }
     })
 }
@@ -352,7 +358,9 @@ document.getElementById('export-google').addEventListener("click", event =>{
                 let ssId= response.result.spreadsheetId
                 let spreadsheetURL = response.result.spreadsheetUrl
                 console.log(spreadsheetURL)
-
+                let exportLink = document.getElementById("export-link")
+                exportLink.href = spreadsheetURL
+                document.getElementById("url-display").style.display = "block"
                 var body = {
                     majorDimension: "COLUMNS",
                     values: input

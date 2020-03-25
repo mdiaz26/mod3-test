@@ -39,7 +39,11 @@
             <label for="amount">Project Amount:</label><br>
             <input type="number" id="amount" name="amount">
             </div>
-            <input type="submit" id="new-budget-submit" class = "btn btn-primary">
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <input type="submit" id="new-budget-submit" class = "btn btn-primary">
+              <button id="cancel-btn" class = "btn btn-primary" type="button">Cancel</button>
+            </div>
 
           </form>
         </div>
@@ -66,6 +70,9 @@
   </div>
 
   <button class="export-google" id = "export-google" style= "display: none;">Export to Google</button>
+  <div id="url-display" class="alert alert-primary" role="alert" style= "display: none;">
+    Your Google Sheet has successfully been made <a href="#" id="export-link" class="alert-link">CLICK HERE</a> to give it a visit.
+  </div>
 
   <script src="src/index.js"></script>
   <script src="src/google.js"></script>

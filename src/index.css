@@ -73,3 +73,7 @@ body{
     overflow: hidden;
     width: 100%;
   }
+
+  .progress {
+      height: 3rem;
+  }
