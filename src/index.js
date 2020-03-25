@@ -8,8 +8,6 @@ var displayBody = document.getElementById('budget-display-area')
 
 document.addEventListener('DOMContentLoaded', () => {
     displayBody.style.display = "none"
-    // authorizeButton.style.margin = "auto"
-    // authorizeButton.style.marginTop = "250px"
     homepageRender()
     addButtonListeners(document.getElementById("body"))
     addFormSubmissionListeners()
@@ -37,8 +35,14 @@ const addListenerToNewBudgetButton = () => {
 }
 
 const showForm = () => {
+    if (newForm.style.display === "none"){
         newForm.style.display = "block"
-        document.getElementById("show-form-btn").style.display = 'none'
+        newForm.reset()
+        document.getElementById("show-form-btn").innerText = 'Cancel'
+    } else if (newForm.style.display === "block") {
+        newForm.style.display = "none"
+        document.getElementById("show-form-btn").innerText = 'Create New Budget!'
+    }
     }
 
 const hideNewForm = () => {
@@ -146,7 +150,14 @@ const addButtonListeners = divElement => {
         const lineItem = event.target.parentNode.parentNode
         switch (event.target.className) {
             case "add-line-item":
-                newLineItemForm.style.display = "block"
+                if (newLineItemForm.style.display === "none"){
+                    newLineItemForm.style.display = "block"
+                    event.target.innerText = "Cancel"
+                } else if (newLineItemForm.style.display === "block") {
+                    newLineItemForm.style.display = "none"
+                    newLineItemForm.reset()
+                    event.target.innerText = "Add Line Item"
+                }
                 break;
             case "edit-button btn btn-primary":
                 editLineItem(lineItem)
@@ -220,7 +231,7 @@ const removeLineItem = (lineItem) => {
     fetch(`http://localhost:3000/line_items/${lineItem.dataset.id}`, {
         method: "DELETE"
     })
-    .then(lineItem.remove())
+    .then(response => fetchBudget(parseInt(lineItem.parentNode.parentNode.dataset.id)))
 }
 
 const addFormSubmissionListeners = () => {
@@ -231,14 +242,22 @@ const addFormSubmissionListeners = () => {
             case "new-project-form":
                 let budgetName = event.target.elements[0].value
                 let budgetAmount = event.target.elements[1].value
-                postNewBudget(budgetName, budgetAmount)
+                if ((budgetName === "") || (budgetAmount === "")){
+                    window.alert("Please remember to fill in both Name and Amount")
+                } else {
+                    postNewBudget(budgetName, budgetAmount)
+                }
                 break;
             case "new-line-item-form":
                 let lineItemName = event.target.elements[0].value
-                let lineItemamount = event.target.elements[1].value
+                let lineItemAmount = event.target.elements[1].value
                 let budgetId = event.target.parentNode.dataset.id
                 let lineItemstatus = 'Tentative'
-                postNewLineItem(lineItemName, lineItemamount, budgetId, lineItemstatus)
+                if ((lineItemName === "") || (lineItemAmount === "")){
+                    window.alert("Please remember to fill in both Name and Amount")
+                } else {
+                    postNewLineItem(lineItemName, lineItemAmount, budgetId, lineItemstatus)
+                }
                 break;
         
         }
@@ -262,7 +281,7 @@ const postNewBudget = (budgetName, budgetAmount) => {
     })
 }
 
-const postNewLineItem = (lineItemName, lineItemamount, budgetId, lineItemstatus) => {
+const postNewLineItem = (lineItemName, lineItemAmount, budgetId, lineItemstatus) => {
     console.log(lineItemName)
     fetch(`http://localhost:3000/line_items`, {
         method: "POST",
@@ -270,7 +289,7 @@ const postNewLineItem = (lineItemName, lineItemamount, budgetId, lineItemstatus)
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        body: JSON.stringify({budget_id: budgetId, amount: lineItemamount, status: lineItemstatus, name: lineItemName})
+        body: JSON.stringify({budget_id: budgetId, amount: lineItemAmount, status: lineItemstatus, name: lineItemName})
     })
     .then(response => response.json())
     .then(LineItem => {
@@ -372,12 +391,12 @@ const calculateAmountRemaining = budgetObject => {
 }
 
 const convertToDollars = number => {
-    let numberWithCommas =  Number(number).toLocaleString('en')
-    // debugger
-    // if (number < 0) {
-    //     numberWithCommas.style.color = "red"
-    // }
-    return ("$" + numberWithCommas)
+    let numberWithCommas =  Number(Math.abs(number)).toLocaleString('en')
+    if (number < 0){
+        return ("-$" + numberWithCommas)
+    } else {
+        return ("$" + numberWithCommas)
+    }
 }
 
 const formatAmountsInDiv = budgetElement => {
