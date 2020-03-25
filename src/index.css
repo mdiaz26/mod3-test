@@ -3,6 +3,12 @@
     background: maroon;
 }
 
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
 .card {
     width: 16rem;
 }
@@ -48,3 +54,22 @@
 .status-tentative{
     background-color: rgb(73, 73, 73);
 }
+
+body{
+    background-color: white;
+}
+
+#authorize_button {
+    margin: auto;
+    margin-top: 300px;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: -1000;
+    object-fit: cover;
+    overflow: hidden;
+    width: 100%;
+  }

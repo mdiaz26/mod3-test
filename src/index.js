@@ -1,10 +1,15 @@
 console.log("working")
 budgetContainer = document.getElementById('body')
 dropDownDiv = document.getElementById("drop-down-div")
-showFormBTN = document.getElementById("show-form-btn")
+var showFormBTN = document.getElementById("show-form-btn")
+var exportButton = document.getElementById('export-google')
+var displayBody = document.getElementById('budget-display-area')
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    displayBody.style.display = "none"
+    // authorizeButton.style.margin = "auto"
+    // authorizeButton.style.marginTop = "250px"
     homepageRender()
     addButtonListeners(document.getElementById("body"))
     addFormSubmissionListeners()
@@ -15,7 +20,6 @@ const homepageRender = () => {
     hideNewForm()
     addListenerToNewBudgetButton()
     fetchBudgets()
-
 }
 
 const fetchBudgets = () => {
@@ -34,11 +38,13 @@ const addListenerToNewBudgetButton = () => {
 
 const showForm = () => {
         newForm.style.display = "block"
+        document.getElementById("show-form-btn").style.display = 'none'
     }
 
 const hideNewForm = () => {
     newForm = document.getElementById("new-project-form")
     newForm.style.display = "none"
+    document.getElementById("show-form-btn").style.display = 'block'
 }
 
 const renderDropDown = (budgetsObj) => {
@@ -251,7 +257,7 @@ const postNewBudget = (budgetName, budgetAmount) => {
     .then(response => response.json())
     .then(budgetObj => {
         fetchBudget(budgetObj.id)
-        newForm.style.display = "none"
+        hideNewForm()
         fetchBudgets()
     })
 }
