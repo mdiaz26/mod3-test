@@ -83,7 +83,15 @@ const renderBudget = budgetObject => {
     budgetContainer.dataset.id = budgetObject.id
     budgetContainer.innerHTML = `
     <h1 id= "budget-title">${budgetObject.name}</h1>
-    <h2 id= "budget-amount">Total Budget: $${Number(budgetObject.total_amount).toLocaleString('en')}</h2>
+    <h3 id= "budget-amount">Total Budget:
+        <span>${budgetObject.total_amount}</span>
+    </h3>
+    <p id="amount-spent">Amount Spent: 
+        <span>${calculateAmountSpent(budgetObject)}</span>
+    </p>
+    <p id="amount-remaining">Amount Remaining: 
+        <span>${calculateAmountRemaining(budgetObject)}</span>
+    </p>
     <button class="delete-budget">Delete</button>
     <button class="add-line-item">Add Line Item</button>
     <form id="new-line-item-form">
@@ -95,6 +103,7 @@ const renderBudget = budgetObject => {
     </form>
     <div id="card-div" class="card-group"></div>
     `
+    formatAmountsInDiv(budgetContainer)
     newLineItemForm = document.getElementById("new-line-item-form")
     newLineItemForm.style.display = "none"
     let cardDiv = document.getElementById("card-div")
@@ -340,4 +349,40 @@ function parseInputForSheets(budgetObj){
     })
     let result = [lineItemName, lineItemAmount, lineItemStatus]
     return result
+}
+
+const calculateAmountSpent = budgetObject => {
+    let totalSpent = budgetObject.line_items.reduce(lineItemReducer, 0)
+    return totalSpent
+}
+
+const lineItemReducer = (total, num) => {
+    return total + num.amount
+}
+
+const calculateAmountRemaining = budgetObject => {
+    let totalAmount = budgetObject.total_amount
+    return (totalAmount - calculateAmountSpent(budgetObject))
+}
+
+const convertToDollars = number => {
+    let numberWithCommas =  Number(number).toLocaleString('en')
+    // debugger
+    // if (number < 0) {
+    //     numberWithCommas.style.color = "red"
+    // }
+    return ("$" + numberWithCommas)
+}
+
+const formatAmountsInDiv = budgetElement => {
+    console.log("formatting")
+
+    let threeElements = [document.getElementById("budget-amount"), document.getElementById("amount-spent"), document.getElementById("amount-remaining")]
+    threeElements.forEach(element => {
+        let span = element.children[0]
+        if (parseInt(span.innerText) < 0) {
+            span.style.color = "red"
+        }
+        span.innerText = convertToDollars(span.innerText)
+    })
 }
