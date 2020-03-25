@@ -90,6 +90,7 @@ const fetchBudget = budgetId => {
 }
 
 const renderBudget = budgetObject => {
+    console.log(calculatePercentageSpent(budgetObject))
     budgetContainer.dataset.id = budgetObject.id
     budgetContainer.innerHTML = `
     <h1 id= "budget-title">${budgetObject.name}</h1>
@@ -98,6 +99,12 @@ const renderBudget = budgetObject => {
     </h3>
     <p id="amount-spent">Amount Spent: 
         <span>${calculateAmountSpent(budgetObject)}</span>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow=${calculatePercentageSpent(budgetObject)}
+            aria-valuemin="0" aria-valuemax="100" style="width:${calculatePercentageSpent(budgetObject)}%">
+                <span>${calculatePercentageSpent(budgetObject)}% Complete</span>
+            </div>
+        </div>
     </p>
     <p id="amount-remaining">Amount Remaining: 
         <span>${calculateAmountRemaining(budgetObject)}</span>
@@ -388,6 +395,12 @@ const lineItemReducer = (total, num) => {
 const calculateAmountRemaining = budgetObject => {
     let totalAmount = budgetObject.total_amount
     return (totalAmount - calculateAmountSpent(budgetObject))
+}
+
+const calculatePercentageSpent = budgetObject => {
+    let totalAmount = budgetObject.total_amount
+    let amountSpent = calculateAmountSpent(budgetObject)
+    return Math.ceil(amountSpent * 100/totalAmount)
 }
 
 const convertToDollars = number => {
