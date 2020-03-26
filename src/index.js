@@ -1,4 +1,5 @@
 console.log("working")
+
 budgetContainer = document.getElementById('body')
 dropDownDiv = document.getElementById("drop-down-div")
 var showFormBTN = document.getElementById("show-form-btn")
@@ -10,7 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
     homepageRender()
     addButtonListeners(budgetContainer)
     addFormSubmissionListeners()
-})
+
+    const sortable = new Sortable.default(document.getElementById("adit-test-cards"), {
+        draggable: '.list-group-item'
+      });
+      sortable.on('sortable:start', () => console.log('sortable:start'));
+      sortable.on('sortable:sort', () => console.log('sortable:sort'));
+      sortable.on('sortable:sorted', () => console.log('sortable:sorted'));
+      sortable.on('sortable:stop', () => console.log('sortable:stop'));
+
+    })
 
 const homepageRender = () => {    
     clearBody()
@@ -436,3 +446,4 @@ const formatAmountsInDiv = budgetElement => {
         span.innerText = convertToDollars(span.innerText)
     })
 }
+
