@@ -12,24 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     addButtonListeners(budgetContainer)
     addFormSubmissionListeners()
 
-    const sortable = new Sortable.default(document.getElementById("adit-test-cards"), {
-        draggable: '.list-group-item'
-      });
-      sortable.on('sortable:start', () => console.log('sortable:start'));
-      sortable.on('sortable:sort', () => console.log('sortable:sort'));
-      sortable.on('sortable:sorted', () => console.log('sortable:sorted'));
-      sortable.on('sortable:stop', () => console.log('sortable:stop'));
-
-    })
-
-    const sortable = new Sortable.default(document.getElementsByClassName("cardDiv")[0], {
-        draggable: '.list-group-item'
-      });
-      sortable.on('sortable:start', () => console.log('sortable:start'));
-      sortable.on('sortable:sort', () => console.log('sortable:sort'));
-      sortable.on('sortable:sorted', () => console.log('sortable:sorted'));
-      sortable.on('sortable:stop', () => console.log('sortable:stop'));
-
     })
 
 const homepageRender = () => {    
@@ -155,18 +137,20 @@ const renderBudget = budgetObject => {
     newLineItemForm = document.getElementById("new-line-item-form")
     newLineItemForm.style.display = "none"
     let cardDiv = document.getElementById("card-div")
-    cardDiv.className = "card-div"
-    budgetObject.line_items.forEach(item => appendCards(item, cardDiv))
+    let orderedLineItems = budgetObject.line_items.sort((a, b) => (a.order > b.order ? 1 : -1))
+    console.log(orderedLineItems)
+    orderedLineItems.forEach(item => appendCards(item, cardDiv))
+    makeCardsSortable()
 }
 
 const appendCards = (lineItem, divElement) => {
     const card = document.createElement('div')
     if (lineItem.status === "Tentative") {
-        card.style.backgroundColor = "yellow"
+        card.style.backgroundColor = "DarkGoldenRod"
     }else {
         card.style.backgroundColor = "lightslategrey"
     }
-    card.className = `card text-white mb-3}`
+    card.className = `card text-white mb-3`
     card.dataset.id = lineItem.id
     card.innerHTML = `
         <p class="card-header">${lineItem.name.toUpperCase()}</p>
@@ -326,7 +310,12 @@ const postNewLineItem = (lineItemName, lineItemAmount, budgetId, lineItemstatus)
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        body: JSON.stringify({budget_id: budgetId, amount: lineItemAmount, status: lineItemstatus, name: lineItemName})
+        body: JSON.stringify({
+            budget_id: budgetId, 
+            amount: lineItemAmount, 
+            status: lineItemstatus, 
+            name: lineItemName
+        })
     })
     .then(response => response.json())
     .then(LineItem => {
@@ -456,5 +445,39 @@ const formatAmountsInDiv = budgetElement => {
         }
         span.innerText = convertToDollars(span.innerText)
     })
+}
+
+const makeCardsSortable = () => {
+    const sortable = new Sortable.default(document.getElementById("card-div"), {
+        draggable: '.card.text-white.mb-3'
+    });
+    sortable.on('sortable:start', () => console.log('sortable:start'));
+    sortable.on('sortable:sort', () => console.log('sortable:sort'));
+    sortable.on('sortable:sorted', () => console.log('sortable:sorted'));
+    sortable.on('sortable:stop', async function() {
+        console.log('sortable:stop')
+        let newOrder = await Array.from(document.getElementById('card-div').children)
+        removeDuplicates(newOrder, "dataset", "id").forEach((card, index) => patchNewOrder(card, index))
+    });
+}
+
+const patchNewOrder = (card, index) => {
+    fetch(`http://localhost:3000/line_items/${card.dataset.id}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            order: ++index
+        })
+    })
+    .then(response => console.log(response.json()))
+}
+
+function removeDuplicates(myArr, prop1, prop2) {
+    return myArr.filter((obj, pos, arr) => {
+        return arr.map(mapObj => mapObj[prop1][prop2]).indexOf(obj[prop1][prop2]) === pos;
+    });
 }
 
