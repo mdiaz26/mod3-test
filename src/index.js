@@ -22,6 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })
 
+    const sortable = new Sortable.default(document.getElementsByClassName("cardDiv")[0], {
+        draggable: '.list-group-item'
+      });
+      sortable.on('sortable:start', () => console.log('sortable:start'));
+      sortable.on('sortable:sort', () => console.log('sortable:sort'));
+      sortable.on('sortable:sorted', () => console.log('sortable:sorted'));
+      sortable.on('sortable:stop', () => console.log('sortable:stop'));
+
+    })
+
 const homepageRender = () => {    
     clearBody()
     hideNewForm()
@@ -145,6 +155,7 @@ const renderBudget = budgetObject => {
     newLineItemForm = document.getElementById("new-line-item-form")
     newLineItemForm.style.display = "none"
     let cardDiv = document.getElementById("card-div")
+    cardDiv.className = "card-div"
     budgetObject.line_items.forEach(item => appendCards(item, cardDiv))
 }
 
