@@ -1,15 +1,17 @@
-console.log("working")
+console.log("twerking")
 
 budgetContainer = document.getElementById('body')
 dropDownDiv = document.getElementById("drop-down-div")
+newForm = document.getElementById("new-project-form")
 var showFormBTN = document.getElementById("show-form-btn")
-var displayBody = document.getElementById('budget-display-area')
+var wholeBodyDiv = document.getElementById('entire-display-area')
 
 
 document.addEventListener('DOMContentLoaded', () => {
     clearAll()
     homepageRender()
-    addButtonListeners(budgetContainer)
+    addButtonListeners()
+    newBudgetCancelListener()
     addFormSubmissionListeners()
 
     })
@@ -33,33 +35,26 @@ const clearBody = () => {
 }
 
 const clearAll = () => {
-    displayBody.style.display = "none"
+    wholeBodyDiv.style.display = "none"
 }
 
 const addListenerToNewBudgetButton = () => {
     showFormBTN.addEventListener("click", showForm)
 }
 
-document.getElementById("new-project-form").addEventListener("click", event => {
-    if (event.target.id === "cancel-btn") {
-        showForm()
-    }
-})
-
-
 const showForm = () => {
-    if (newForm.style.display === "none"){
-        newForm.style.display = "block"
-        newForm.reset()
-        document.getElementById("show-form-btn").style.display = 'none'
-    } else if (newForm.style.display === "block") {
-        newForm.style.display = "none"
-        document.getElementById("show-form-btn").style.display = 'block'
-    }
-    }
+    newForm.style.display = "block"
+    newForm.reset()
+    document.getElementById("show-form-btn").style.display = 'none'
+}
+
+const newBudgetCancelListener = () => {
+    document.getElementById("cancel-btn").addEventListener("click", event => {
+        hideNewForm()
+    })
+}
 
 const hideNewForm = () => {
-    newForm = document.getElementById("new-project-form")
     newForm.style.display = "none"
     document.getElementById("show-form-btn").style.display = 'block'
 }
@@ -122,7 +117,7 @@ const renderBudget = budgetObject => {
     <p id="amount-remaining">Amount Remaining: 
         <span>${calculateAmountRemaining(budgetObject)}</span>
     </p>
-    <button class="delete-budget">Delete</button>
+    <button class="delete-budget">Delete Budget</button>
     <button class="add-line-item">Add Line Item</button>
     <form id="new-line-item-form">
         <label for="name">Line Item Name:</label><br>
@@ -133,12 +128,11 @@ const renderBudget = budgetObject => {
     </form>
     <div id="card-div" class="card-group"></div>
     `
-    formatAmountsInDiv(budgetContainer)
+    formatAmountsInBudget()
     newLineItemForm = document.getElementById("new-line-item-form")
     newLineItemForm.style.display = "none"
     let cardDiv = document.getElementById("card-div")
     let orderedLineItems = budgetObject.line_items.sort((a, b) => (a.order > b.order ? 1 : -1))
-    console.log(orderedLineItems)
     orderedLineItems.forEach(item => appendCards(item, cardDiv))
     makeCardsSortable()
 }
@@ -168,7 +162,7 @@ const appendCards = (lineItem, divElement) => {
     divElement.append(card)
 }
 
-const addButtonListeners = budgetContainer => {
+const addButtonListeners = () => {
     budgetContainer.addEventListener("click", event => {
         const lineItem = event.target.parentNode.parentNode
         switch (event.target.className) {
@@ -434,9 +428,7 @@ const convertToDollars = number => {
     }
 }
 
-const formatAmountsInDiv = budgetElement => {
-    console.log("formatting")
-
+const formatAmountsInBudget = () => {
     let threeElements = [document.getElementById("budget-amount"), document.getElementById("amount-spent"), document.getElementById("amount-remaining")]
     threeElements.forEach(element => {
         let span = element.children[0]
