@@ -6,9 +6,9 @@ var displayBody = document.getElementById('budget-display-area')
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    displayBody.style.display = "none"
+    clearAll()
     homepageRender()
-    addButtonListeners(document.getElementById("body"))
+    addButtonListeners(budgetContainer)
     addFormSubmissionListeners()
 })
 
@@ -26,7 +26,12 @@ const fetchBudgets = () => {
 }
 
 const clearBody = () => {
-    document.getElementById("body").innerHTML = ""
+    budgetContainer.style.display = "none"
+    
+}
+
+const clearAll = () => {
+    displayBody.style.display = "none"
 }
 
 const addListenerToNewBudgetButton = () => {
@@ -97,7 +102,6 @@ const fetchBudget = budgetId => {
 }
 
 const renderBudget = budgetObject => {
-    console.log(calculatePercentageSpent(budgetObject))
     budgetContainer.dataset.id = budgetObject.id
     budgetContainer.innerHTML = `
     <h1 id= "budget-title">${budgetObject.name}</h1>
@@ -144,9 +148,9 @@ const appendCards = (lineItem, divElement) => {
     card.className = `card text-white mb-3}`
     card.dataset.id = lineItem.id
     card.innerHTML = `
-        <p class="card-header">${lineItem.name}</p>
+        <p class="card-header">${lineItem.name.toUpperCase()}</p>
         <div class="card-body">
-            <p>$${Number(lineItem.amount).toLocaleString('en')}</p>
+            <p data-amount=${lineItem.amount}>$${Number(lineItem.amount).toLocaleString('en')}</p>
             <p class="card-status">${lineItem.status}</p>
         </div>
         <div class="btn-group">
@@ -159,8 +163,8 @@ const appendCards = (lineItem, divElement) => {
     divElement.append(card)
 }
 
-const addButtonListeners = divElement => {
-    divElement.addEventListener("click", event => {
+const addButtonListeners = budgetContainer => {
+    budgetContainer.addEventListener("click", event => {
         const lineItem = event.target.parentNode.parentNode
         switch (event.target.className) {
             case "add-line-item":
@@ -192,7 +196,6 @@ const addButtonListeners = divElement => {
 }
 
 const editLineItem = lineItem => {
-    console.log(lineItem)
     renderEditItemForm(lineItem)
 }
 
@@ -202,7 +205,7 @@ const renderEditItemForm = lineItem => {
     const form = modal.getElementsByTagName("form")[0]
     form.dataset.id = lineItem.dataset.id
     const currentName = lineItem.getElementsByClassName("card-header")[0].innerText
-    const currentAmount = lineItem.getElementsByClassName("card-body")[0].children[0].innerText
+    const currentAmount = lineItem.getElementsByClassName("card-body")[0].children[0].dataset.amount
     form.name.value = currentName
     form.amount.value = currentAmount
     addListenersToModal(modal)
@@ -318,6 +321,7 @@ const deleteBudget = (budjetObj) => {
         method: "DELETE"
     })
     .then(data => {
+        console.log("deleting")
         homepageRender()
     })
 }
