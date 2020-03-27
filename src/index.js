@@ -21,6 +21,7 @@ const homepageRender = () => {
     hideNewForm()
     addListenerToNewBudgetButton()
     fetchBudgets()
+    removeExportButtonAndIFrame()
 }
 
 const fetchBudgets = () => {
@@ -66,7 +67,7 @@ const renderDropDown = (budgetsObj) => {
     addDefaultToDropDown(dropDown)
     budgetsObj.forEach(budget => {
         let option = document.createElement('option')
-        option.value = `${budget.name} ${budget.id}`
+        option.value = `${budget.name}|[]${budget.id}`
         option.innerText = budget.name
         dropDown.append(option)
     })
@@ -86,14 +87,12 @@ const addDropDownEventListener = (dropDown) => {
         let selectionValue = event.target.value
         if (selectionValue === "Select Existing Budget") {
             budgetContainer.innerHTML = ""
-            document.getElementById("export-google").style.display = 'none'
-            document.getElementById("url-display").style.display = 'none'
-            iFrameGoogle.style.display = 'none'
+            removeExportButtonAndIFrame()
         } else {
         console.log("changing")
-            fetchBudget(selectionValue.split(" ")[1])
+            fetchBudget(selectionValue.split("|[]")[1])
         document.getElementById("export-google").style.display = 'block'
-        document.getElementById("export-google").innerHTML = `Export ${selectionValue.split(" ")[0]} to Google`
+        document.getElementById("export-google").innerHTML = `Export ${selectionValue.split("|[]")[0]} to Google`
         document.getElementById("url-display").style.display = 'none'
         iFrameGoogle.style.display = 'none'
     }
@@ -497,3 +496,8 @@ function removeDuplicates(myArr, prop1, prop2) {
     });
 }
 
+const removeExportButtonAndIFrame = () => {
+    document.getElementById("export-google").style.display = 'none'
+    document.getElementById("url-display").style.display = 'none'
+    iFrameGoogle.style.display = 'none'
+}
