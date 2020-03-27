@@ -140,3 +140,10 @@ li {
 .btn-info {
     z-index: 999;
 }
+
+#export-google-iframe{
+    width: 100%;
+    height: 40rem;
+    border: none;
+
+}
