@@ -1,4 +1,4 @@
-console.log("twerking")
+console.log("working")
 
 budgetContainer = document.getElementById('body')
 dropDownDiv = document.getElementById("drop-down-div")
@@ -83,8 +83,11 @@ const addDropDownEventListener = (dropDown) => {
     dropDown.addEventListener("change", event => {
         if (event.target.value === "--") {
             budgetContainer.innerHTML = ""
+            document.getElementById("export-google").style.display = 'none'
         } else {
         fetchBudget(event.target.value)
+        document.getElementById("export-google").style.display = 'block'
+        document.getElementById("export-google").innerHTML = `Export ${event.target.options[event.target.value].text} to Google`
     }
     })
 }

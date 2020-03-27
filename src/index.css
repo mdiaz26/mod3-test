@@ -57,11 +57,15 @@
 
 body{
     background-color: white;
+    padding: 2rem;
 }
 
 #authorize_button {
     margin: auto;
     margin-top: 300px;
+    width: 16rem;
+    height: 6rem;
+    background-color: #3C5772;
 }
 
 #myVideo {
@@ -72,11 +76,11 @@ body{
     object-fit: cover;
     overflow: hidden;
     width: 100%;
-  }
+}
 
-  .progress {
-      height: 3rem;
-  }
+.progress {
+    height: 3rem;
+}
 
 ul {
     list-style: none;
@@ -84,4 +88,16 @@ ul {
 
 li {
     list-style: none;
+}
+
+#signout_button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#show-form-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
