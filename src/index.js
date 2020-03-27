@@ -161,7 +161,7 @@ const appendCards = (lineItem, divElement) => {
         </div>
         <div class="btn-group">
             <button class="edit-button btn btn-info" >Edit</button>
-            <button class="delete-button btn btn-danger" >Delete</button>
+            <button class="delete-button btn btn-danger">Delete</button>
         </div>
         <button class="approve-button btn btn-primary" >Approve</button>
     `
@@ -196,10 +196,10 @@ const addCardListeners = () => {
     cardDiv.addEventListener("click", event => {
         const lineItem = event.target.parentNode.parentNode
         switch (event.target.className) {
-            case "edit-button btn btn-primary":
+            case "edit-button btn btn-info":
                 editLineItem(lineItem)
                 break;
-            case "delete-button btn btn-primary":
+            case "delete-button btn btn-danger":
                 removeLineItem(lineItem)
                 break;
             case "approve-button btn btn-primary":
@@ -232,9 +232,8 @@ const addListenersToModal = modalElement => {
             case "close":
                 event.target.parentNode.parentNode.style.display = "none"
                 break;
-            case "submit-form":
+            case "submit-form btn btn-info":
                 let formData = event.target.parentNode.parentNode
-                console.log(formData)
                 lineItemPostRequest(formData)
                 event.target.parentNode.parentNode.parentNode.parentNode.style.display = "none"
                 break;
@@ -274,6 +273,8 @@ const addFormSubmissionListeners = () => {
                 let budgetAmount = event.target.elements[1].value
                 if ((budgetName === "") || (budgetAmount === "")){
                     window.alert("Please remember to fill in both Name and Amount")
+                } if (budgetAmount < 1){
+                    window.alert("Your budget is too small")
                 } else {
                     postNewBudget(budgetName, budgetAmount)
                 }
@@ -285,6 +286,8 @@ const addFormSubmissionListeners = () => {
                 let lineItemstatus = 'Tentative'
                 if ((lineItemName === "") || (lineItemAmount === "")){
                     window.alert("Please remember to fill in both Name and Amount")
+                } if (lineItemAmount < 0){
+                    window.alert("You can't make the number negative!")
                 } else {
                     postNewLineItem(lineItemName, lineItemAmount, budgetId, lineItemstatus)
                 }
@@ -327,19 +330,16 @@ const postNewLineItem = (lineItemName, lineItemAmount, budgetId, lineItemstatus)
     })
     .then(response => response.json())
     .then(LineItem => {
-        console.dir(LineItem)
         fetchBudget(budgetId)
         newLineItemForm.style.display = "none"
     })
 }
 
 const deleteBudget = (budjetObj) => {
-    console.dir(budjetObj)
     fetch(`http://localhost:3000/budgets/${budjetObj.dataset.id}`, {
         method: "DELETE"
     })
     .then(data => {
-        console.log("deleting")
         homepageRender()
     })
 }
@@ -367,7 +367,6 @@ const addApproveButton = appendingElement => {
 }
 
 document.getElementById('export-google').addEventListener("click", event =>{
-    console.log("listenerworking")
     fetch(`http://localhost:3000/budgets/${dropDownDiv.children[0].value}`)
     .then(response => response.json())
     .then(budgetObj => {

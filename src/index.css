@@ -133,3 +133,10 @@ li {
     width: 30rem;
 }
 
+.btn-danger {
+    z-index: 1000;
+}
+
+.btn-info {
+    z-index: 999;
+}
