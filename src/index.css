@@ -141,6 +141,14 @@ li {
     z-index: 999;
 }
 
+<<<<<<< HEAD
 #google-export{
     display: none;
+=======
+#export-google-iframe{
+    width: 100%;
+    height: 40rem;
+    border: none;
+
+>>>>>>> 5bc6a7c02e1940983f069e2ba74fa48fa5d65d2e
 }

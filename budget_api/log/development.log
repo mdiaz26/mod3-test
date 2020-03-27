@@ -33189,6 +33189,7 @@ Completed 200 OK in 46ms (Views: 0.7ms | ActiveRecord: 3.8ms | Allocations: 1206
 Completed 200 OK in 50ms (Views: 0.4ms | ActiveRecord: 7.8ms | Allocations: 12721)
 
 
+<<<<<<< HEAD
 Started GET "/budgets" for ::1 at 2020-03-27 13:13:14 -0400
   [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
 Processing by BudgetsController#index as */*
@@ -33943,5 +33944,380 @@ Processing by BudgetsController#index as */*
   [1m[36mLineItem Load (1.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 7]]
   ↳ app/controllers/budgets_controller.rb:7:in `index'
 Completed 200 OK in 56ms (Views: 24.1ms | ActiveRecord: 31.7ms | Allocations: 8500)
+=======
+Started GET "/budgets" for ::1 at 2020-03-27 13:47:47 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (1.0ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 10ms (Views: 6.6ms | ActiveRecord: 2.7ms | Allocations: 5900)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:06:55 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (1.7ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (1.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (1.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 41ms (Views: 31.8ms | ActiveRecord: 5.8ms | Allocations: 5900)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:07:12 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (0.4ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 17ms (Views: 14.0ms | ActiveRecord: 3.1ms | Allocations: 5774)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:09:34 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (1.0ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 25ms (Views: 19.9ms | ActiveRecord: 3.7ms | Allocations: 5774)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:09:36 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.4ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 10ms (Views: 6.5ms | ActiveRecord: 1.2ms | Allocations: 3362)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:09:39 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.5ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 12ms (Views: 8.0ms | ActiveRecord: 1.8ms | Allocations: 3359)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:12:10 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (1.4ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.3ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.8ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 19ms (Views: 15.6ms | ActiveRecord: 3.5ms | Allocations: 5774)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:13:04 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (0.3ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 11ms (Views: 9.0ms | ActiveRecord: 1.3ms | Allocations: 5774)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:13:08 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.9ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 13ms (Views: 6.9ms | ActiveRecord: 1.6ms | Allocations: 3359)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:13:09 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.7ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 13ms (Views: 7.2ms | ActiveRecord: 1.3ms | Allocations: 3359)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:14:23 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (0.8ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.3ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 23ms (Views: 20.1ms | ActiveRecord: 2.6ms | Allocations: 5774)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:14:28 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.4ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.3ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 7ms (Views: 4.6ms | ActiveRecord: 1.1ms | Allocations: 3360)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:14:29 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.4ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 10ms (Views: 7.5ms | ActiveRecord: 1.2ms | Allocations: 3359)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:15:13 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (1.2ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (2.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.3ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 34ms (Views: 28.6ms | ActiveRecord: 5.2ms | Allocations: 5774)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:15:30 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.2ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 8ms (Views: 5.1ms | ActiveRecord: 1.0ms | Allocations: 3359)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:15:34 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (1.4ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.6ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 12ms (Views: 6.9ms | ActiveRecord: 2.3ms | Allocations: 3359)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:20:48 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (1.7ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 23ms (Views: 18.3ms | ActiveRecord: 3.7ms | Allocations: 5775)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:21:01 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (0.5ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 20ms (Views: 17.5ms | ActiveRecord: 2.4ms | Allocations: 5774)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:21:14 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.5ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 10ms (Views: 6.0ms | ActiveRecord: 1.7ms | Allocations: 3359)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:21:16 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (1.0ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (1.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 19ms (Views: 11.8ms | ActiveRecord: 3.1ms | Allocations: 3360)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:22:36 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (0.7ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.4ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.3ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 16ms (Views: 12.6ms | ActiveRecord: 2.5ms | Allocations: 5774)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:22:49 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.3ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 7ms (Views: 4.6ms | ActiveRecord: 0.9ms | Allocations: 3359)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:22:54 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.7ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 8ms (Views: 4.3ms | ActiveRecord: 1.2ms | Allocations: 3359)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:25:02 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (1.9ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.3ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.2ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 18ms (Views: 14.4ms | ActiveRecord: 3.2ms | Allocations: 5774)
+
+
+Started GET "/budgets" for ::1 at 2020-03-27 14:25:31 -0400
+Processing by BudgetsController#index as */*
+  [1m[36mBudget Load (0.5ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets"[0m
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.3ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+  [1m[36mLineItem Load (0.7ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:7:in `index'
+Completed 200 OK in 18ms (Views: 14.8ms | ActiveRecord: 2.5ms | Allocations: 5774)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:25:46 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.3ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 15ms (Views: 11.3ms | ActiveRecord: 1.6ms | Allocations: 3359)
+
+
+Started GET "/budgets/1" for ::1 at 2020-03-27 14:25:49 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (1.0ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 1]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 17ms (Views: 10.7ms | ActiveRecord: 2.0ms | Allocations: 3359)
+
+
+Started GET "/budgets/2" for ::1 at 2020-03-27 14:25:58 -0400
+Processing by BudgetsController#show as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mBudget Load (0.6ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" WHERE "budgets"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/budgets_controller.rb:43:in `set_budget'
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" INNER JOIN "line_items" ON "comments"."line_item_id" = "line_items"."id" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+  [1m[36mLineItem Load (0.5ms)[0m  [1m[34mSELECT "line_items".* FROM "line_items" WHERE "line_items"."budget_id" = $1[0m  [["budget_id", 2]]
+  ↳ app/controllers/budgets_controller.rb:12:in `show'
+Completed 200 OK in 16ms (Views: 11.1ms | ActiveRecord: 1.6ms | Allocations: 2667)
+>>>>>>> 5bc6a7c02e1940983f069e2ba74fa48fa5d65d2e
 
 

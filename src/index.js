@@ -5,7 +5,7 @@ dropDownDiv = document.getElementById("drop-down-div")
 newForm = document.getElementById("new-project-form")
 var showFormBTN = document.getElementById("show-form-btn")
 var wholeBodyDiv = document.getElementById('entire-display-area')
-
+iFrameGoogle = document.getElementById("export-google-iframe")
 
 document.addEventListener('DOMContentLoaded', () => {
     clearAll()
@@ -87,11 +87,15 @@ const addDropDownEventListener = (dropDown) => {
         if (selectionValue === "Select Existing Budget") {
             budgetContainer.innerHTML = ""
             document.getElementById("export-google").style.display = 'none'
+            document.getElementById("url-display").style.display = 'none'
+            iFrameGoogle.style.display = 'none'
         } else {
         console.log("changing")
             fetchBudget(selectionValue.split(" ")[1])
         document.getElementById("export-google").style.display = 'block'
         document.getElementById("export-google").innerHTML = `Export ${selectionValue.split(" ")[0]} to Google`
+        document.getElementById("url-display").style.display = 'none'
+        iFrameGoogle.style.display = 'none'
     }
     })
 }
@@ -102,6 +106,7 @@ const fetchBudget = budgetId => {
     .then(budgetObj => {
         renderBudget(budgetObj)
         document.getElementById("url-display").style.display = "none"
+        iFrameGoogle.style.display="none"
     })
 }
 
@@ -383,7 +388,11 @@ document.getElementById('export-google').addEventListener("click", event =>{
                 console.log(spreadsheetURL)
                 let exportLink = document.getElementById("export-link")
                 exportLink.href = spreadsheetURL
+                iFrameGoogle.src = spreadsheetURL
                 document.getElementById("url-display").style.display = "block"
+                iFrameGoogle.style.display = "block"
+                console.log(iFrameGoogle.style.display)
+                console.log(iFrameGoogle.src)
                 var body = {
                     majorDimension: "COLUMNS",
                     values: input
