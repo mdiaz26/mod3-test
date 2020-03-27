@@ -10,7 +10,7 @@ var wholeBodyDiv = document.getElementById('entire-display-area')
 document.addEventListener('DOMContentLoaded', () => {
     clearAll()
     homepageRender()
-    addButtonListeners()
+    addBodyListeners()
     newBudgetCancelListener()
     addFormSubmissionListeners()
 
@@ -61,6 +61,8 @@ const hideNewForm = () => {
 
 const renderDropDown = (budgetsObj) => {
     const dropDown = document.createElement('select')
+    dropDown.id = "budget-selector"
+    dropDown.className = "custom-select-lg"
     addDefaultToDropDown(dropDown)
     budgetsObj.forEach(budget => {
         let option = document.createElement('option')
@@ -75,13 +77,13 @@ const renderDropDown = (budgetsObj) => {
 
 const addDefaultToDropDown = dropDown => {
     let option = document.createElement('option')
-    option.innerText = "--"
+    option.innerText = "Select Existing Budget"
     dropDown.append(option)
 }
 
 const addDropDownEventListener = (dropDown) => {
     dropDown.addEventListener("change", event => {
-        if (event.target.value === "--") {
+        if (event.target.value === "Select Existing Budget") {
             budgetContainer.innerHTML = ""
             document.getElementById("export-google").style.display = 'none'
         } else {
@@ -104,31 +106,33 @@ const fetchBudget = budgetId => {
 const renderBudget = budgetObject => {
     budgetContainer.dataset.id = budgetObject.id
     budgetContainer.innerHTML = `
-    <h1 id= "budget-title">${budgetObject.name}</h1>
-    <h3 id= "budget-amount">Total Budget:
-        <span>${budgetObject.total_amount}</span>
-    </h3>
-    <p id="amount-spent">Amount Spent: 
-        <span>${calculateAmountSpent(budgetObject)}</span>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow=${calculatePercentageSpent(budgetObject)}
-            aria-valuemin="0" aria-valuemax="100" style="width:${calculatePercentageSpent(budgetObject)}%">
-                <span>${calculatePercentageSpent(budgetObject)}% Complete</span>
+    <div class="jumbotron">
+        <h1 id= "budget-title">${budgetObject.name}</h1>
+        <h3 id= "budget-amount">Total Budget:
+            <span>${budgetObject.total_amount}</span>
+        </h3>
+        <p id="amount-spent">Amount Spent: 
+            <span>${calculateAmountSpent(budgetObject)}</span>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow=${calculatePercentageSpent(budgetObject)}
+                aria-valuemin="0" aria-valuemax="100" style="width:${calculatePercentageSpent(budgetObject)}%">
+                    <span>${calculatePercentageSpent(budgetObject)}% Complete</span>
+                </div>
             </div>
-        </div>
-    </p>
-    <p id="amount-remaining">Amount Remaining: 
-        <span>${calculateAmountRemaining(budgetObject)}</span>
-    </p>
-    <button class="delete-budget">Delete Budget</button>
-    <button class="add-line-item">Add Line Item</button>
-    <form id="new-line-item-form">
-        <label for="name">Line Item Name:</label><br>
-        <input type="text" id="name" name="name"><br>
-        <label for="amount">Line Item Amount:</label><br>
-        <input type="number" id="amount" name="amount">
-        <input type="submit" id="new-line-item-submit">
-    </form>
+        </p>
+        <p id="amount-remaining">Amount Remaining: 
+            <span>${calculateAmountRemaining(budgetObject)}</span>
+        </p>
+        <button id="delete-budget" class="btn btn-danger">Delete Budget</button>
+        <button id="add-line-item" class="btn btn-info">Add Line Item</button>
+        <form id="new-line-item-form">
+            <label for="name">Line Item Name:</label><br>
+            <input type="text" id="name" name="name"><br>
+            <label for="amount">Line Item Amount:</label><br>
+            <input type="number" id="amount" name="amount">
+            <input type="submit" id="new-line-item-submit">
+        </form>
+    </div>
     <div id="card-div" class="card-group"></div>
     `
     formatAmountsInBudget()
@@ -156,19 +160,19 @@ const appendCards = (lineItem, divElement) => {
             <p class="card-status">${lineItem.status}</p>
         </div>
         <div class="btn-group">
-            <button class="edit-button btn btn-primary" >Edit</button>
-            <button class="delete-button btn btn-primary" >Delete</button>
+            <button class="edit-button btn btn-info" >Edit</button>
+            <button class="delete-button btn btn-danger" >Delete</button>
         </div>
         <button class="approve-button btn btn-primary" >Approve</button>
     `
     addApproveButton(card)
+    addCardListeners()
     divElement.append(card)
 }
 
-const addButtonListeners = () => {
+const addBodyListeners = () => {
     budgetContainer.addEventListener("click", event => {
-        const lineItem = event.target.parentNode.parentNode
-        switch (event.target.className) {
+        switch (event.target.id) {
             case "add-line-item":
                 if (newLineItemForm.style.display === "none"){
                     newLineItemForm.style.display = "block"
@@ -179,6 +183,19 @@ const addButtonListeners = () => {
                     event.target.innerText = "Add Line Item"
                 }
                 break;
+            case "delete-budget":
+                const budgetElement = event.target.parentNode.parentNode
+                deleteBudget(budgetElement)
+                break;
+        }
+    })
+}
+
+const addCardListeners = () => {
+    let cardDiv = document.getElementById("card-div")
+    cardDiv.addEventListener("click", event => {
+        const lineItem = event.target.parentNode.parentNode
+        switch (event.target.className) {
             case "edit-button btn btn-primary":
                 editLineItem(lineItem)
                 break;
@@ -186,12 +203,7 @@ const addButtonListeners = () => {
                 removeLineItem(lineItem)
                 break;
             case "approve-button btn btn-primary":
-                console.log(event.target.parentNode)
                 approveLineItem(event.target.parentNode)
-                break;
-            case "delete-budget":
-                const budgetElement = event.target.parentNode
-                deleteBudget(budgetElement)
                 break;
         }
     })
@@ -256,7 +268,6 @@ const removeLineItem = (lineItem) => {
 const addFormSubmissionListeners = () => {
     document.addEventListener("submit", event => {
         event.preventDefault()
-        console.dir(event)
         switch (event.target.id) {
             case "new-project-form":
                 let budgetName = event.target.elements[0].value
@@ -270,7 +281,7 @@ const addFormSubmissionListeners = () => {
             case "new-line-item-form":
                 let lineItemName = event.target.elements[0].value
                 let lineItemAmount = event.target.elements[1].value
-                let budgetId = event.target.parentNode.dataset.id
+                let budgetId = event.target.parentNode.parentNode.dataset.id
                 let lineItemstatus = 'Tentative'
                 if ((lineItemName === "") || (lineItemAmount === "")){
                     window.alert("Please remember to fill in both Name and Amount")

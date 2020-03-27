@@ -1,6 +1,12 @@
-.delete-budget {
-    color: white;
-    background: maroon;
+#delete-budget {
+    position: absolute;
+    right: 42px;
+    top: 210px;
+}
+
+.btn-primary {
+    background-color: #3C5772;
+    border: none;
 }
 
 .btn-secondary {
@@ -9,21 +15,18 @@
     border-color: #6c757d;
 }
 
+.progress-bar {
+    background-color: #3C5772;
+}
+
 .card {
     width: 16rem;
 }
 
-.edit-button{
-    width: 50%;
-    background-color: lightslategrey;
-    border-color: black;
-}
-
-.delete-button {
-    width: 50%;
-    color: white;
-    background: maroon;
-    border-color: black;
+#add-line-item {
+    position: absolute;
+    right: 42px;
+    top: 170px;
 }
 
 .modal {
@@ -57,7 +60,7 @@
 
 body{
     background-color: white;
-    padding: 2rem;
+    padding: 10px;
 }
 
 #authorize_button {
@@ -94,10 +97,39 @@ li {
     position: absolute;
     top: 10px;
     right: 10px;
+    width: 16rem;
 }
 
 #show-form-btn {
     position: absolute;
-    top: 10px;
+    top: 70px;
     left: 10px;
+    width: 16rem;
+
 }
+
+#budget-selector {
+    position: absolute;
+    top: 10px;
+    width: 16rem;
+}
+
+.jumbotron {
+    margin-top: 6rem;
+    padding: 2rem;
+}
+
+#amount-remaining {
+    position: absolute;
+    right: 42px;
+    top: 256px;
+}
+
+#new-project-form {
+    text-align: -webkit-center;
+}
+
+#add-budget-form-card {
+    width: 30rem;
+}
+
