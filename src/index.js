@@ -66,7 +66,7 @@ const renderDropDown = (budgetsObj) => {
     addDefaultToDropDown(dropDown)
     budgetsObj.forEach(budget => {
         let option = document.createElement('option')
-        option.value = budget.id
+        option.value = `${budget.name} ${budget.id}`
         option.innerText = budget.name
         dropDown.append(option)
     })
@@ -83,13 +83,15 @@ const addDefaultToDropDown = dropDown => {
 
 const addDropDownEventListener = (dropDown) => {
     dropDown.addEventListener("change", event => {
-        if (event.target.value === "Select Existing Budget") {
+        let selectionValue = event.target.value
+        if (selectionValue === "Select Existing Budget") {
             budgetContainer.innerHTML = ""
             document.getElementById("export-google").style.display = 'none'
         } else {
-        fetchBudget(event.target.value)
+        console.log("changing")
+            fetchBudget(selectionValue.split(" ")[1])
         document.getElementById("export-google").style.display = 'block'
-        document.getElementById("export-google").innerHTML = `Export ${event.target.options[event.target.value].text} to Google`
+        document.getElementById("export-google").innerHTML = `Export ${selectionValue.split(" ")[0]} to Google`
     }
     })
 }

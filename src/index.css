@@ -140,3 +140,7 @@ li {
 .btn-info {
     z-index: 999;
 }
+
+#google-export{
+    display: none;
+}
